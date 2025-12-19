@@ -56,12 +56,11 @@ public class Manager : MonoBehaviour
             {
                 Destroy(ice[i]);
                 ice.RemoveAt(i);
-                Debug.Log("adding cc");
                 cc++;
             }
         }
 
-        moneyText.text = $"CC: {cc}";
+        moneyText.text = $"{cc}";
         timeText.text = TimeToString();
         temperatureText.text = temperature.ToString() + "°C";
     }

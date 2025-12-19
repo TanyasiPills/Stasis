@@ -147,7 +147,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9372d774b80144b4a81785f3951483ab
+      spriteID: 6eae221658d7b7643b95e683fc15029d
       internalID: -1749858379
       vertices: []
       indices: 
@@ -169,7 +169,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e60a69a5c56a84441b320a6afda38fed
+      spriteID: 075ee972bb73e2c46984c7f3c4ed71ea
       internalID: 471346184
       vertices: []
       indices: 
@@ -191,8 +191,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 572b89cf4fc6ec14584b66c3c6ed26b5
+      spriteID: 54a8e21603a97f44b85ac84f76d229a8
       internalID: -1020956008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stasisIcons_4
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 0
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5815f3797c9218d45b0c2e0d4fe18452
+      internalID: -2108486325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stasisIcons_5
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 0
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6790ab0f50db8714cb4f6ae69d2da54c
+      internalID: 14312702
       vertices: []
       indices: 
       edges: []
@@ -215,6 +259,8 @@ TextureImporter:
       stasisIcons_1: -1749858379
       stasisIcons_2: 471346184
       stasisIcons_3: -1020956008
+      stasisIcons_4: -2108486325
+      stasisIcons_5: 14312702
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
