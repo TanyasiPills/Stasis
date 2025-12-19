@@ -11,6 +11,7 @@ public class Menu : MonoBehaviour, IPointerDownHandler
 
     public List<GameObject> buys;
     public List<GameObject> upgrades;
+    public List<GameObject> upgradeHolders;
     public List<GameObject> buildings;
 
     void Start()
@@ -21,25 +22,20 @@ public class Menu : MonoBehaviour, IPointerDownHandler
 
         buys = GameObject.FindGameObjectsWithTag("buy").ToList();
         upgrades = GameObject.FindGameObjectsWithTag("turret").Concat(GameObject.FindGameObjectsWithTag("shield")).ToList();
+        upgradeHolders = GameObject.FindGameObjectsWithTag("upgradeHolder").ToList();
 
-        foreach (var item in buildings)
-        {
-            item.SetActive(false);
-        }
+
+        foreach (var item in buildings) item.SetActive(false);
 
         foreach (var item in buys)
         {
             Button button = item.GetComponentInChildren<Button>();
-            string name = item.name;
-            string tag = item.tag;
-
-            button.onClick.AddListener(() => Buy(button, name));
+            button.onClick.AddListener(() => Buy(button));
         }
 
-        foreach (var item in upgrades)
-        {
-            item.SetActive(false);
-        }
+        foreach (var item in upgrades) item.SetActive(false);
+
+        foreach (var item in upgradeHolders)item.SetActive(false);
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -56,13 +52,11 @@ public class Menu : MonoBehaviour, IPointerDownHandler
         return bought;
     }
 
-    public void Buy(Button button, string name)
+    public void Buy(Button button)
     {
         bool canBuy = false;
 
-        string sign = new string(name.Skip(1).Take(1).ToArray());
-
-        Debug.Log(sign);
+        string sign = new string(button.name.Skip(1).Take(1).ToArray());
 
         switch (sign) 
         {
@@ -87,12 +81,23 @@ public class Menu : MonoBehaviour, IPointerDownHandler
             
             foreach(var item in buildings)
             {
-                if (item.name == name + "game") item.SetActive(true);
+                if (item.name == button.name + "game") item.SetActive(true);
             }
 
             foreach (var item in upgrades)
             {
-                if(item.name == name){
+                if(item.name == button.name)
+                {
+                    item.SetActive(true);
+                }
+            }
+
+            foreach (var item in upgradeHolders)
+            {
+                string position = new string(item.name.Take(2).ToArray());
+
+                if (position == button.name && !item.activeSelf)
+                {
                     item.SetActive(true);
                 }
             }

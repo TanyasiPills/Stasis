@@ -13,6 +13,7 @@ TagManager:
   - turret
   - shield
   - machine
+  - upgradeHolder
   layers:
   - Default
   - TransparentFX

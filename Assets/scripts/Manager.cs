@@ -68,11 +68,16 @@ public class Manager : MonoBehaviour
 
     public void UIChange()
     {
-        if (!menu.activeSelf){
+        if (!menu.activeSelf && menu.GetComponent<Menu>().AnyBuildingBought())
+        {
             menu.SetActive(true);
-
+            buyHolder.SetActive(false);
         }
-        else if (menu.activeSelf) menu.SetActive(false);
+        else if (menu.activeSelf)
+        {
+            menu.SetActive(false);
+            buyHolder.SetActive(true);
+        }
     }
 
     public bool UIIsOpen()
