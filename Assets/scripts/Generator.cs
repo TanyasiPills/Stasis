@@ -3,6 +3,12 @@ using UnityEngine.Networking;
 
 public class Generator : MonoBehaviour
 {
+    public enum Upgrades
+    {
+        turret,
+        firewall
+    }
+
     public enum MachineType
     {
         Chunky,
@@ -40,5 +46,10 @@ public class Generator : MonoBehaviour
     void Update()
     {
         manager.AddHeat(generatedHeat * Time.deltaTime);
+    }
+
+    public void Upgraded(Upgrades upgrade)
+    {
+        Debug.Log($"Upgraded with: {upgrade}");
     }
 }

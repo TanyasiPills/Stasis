@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class Menu : MonoBehaviour, IPointerDownHandler
 {
@@ -33,9 +34,14 @@ public class Menu : MonoBehaviour, IPointerDownHandler
             button.onClick.AddListener(() => Buy(button));
         }
 
-        foreach (var item in upgrades) item.SetActive(false);
+        foreach (var item in upgrades)
+        {
+            Button button = item.GetComponentInChildren<Button>();
+            button.onClick.AddListener(() => Upgrade(button));
+            item.SetActive(false);
+        }
 
-        foreach (var item in upgradeHolders)item.SetActive(false);
+        foreach (var item in upgradeHolders) item.SetActive(false);
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -104,8 +110,61 @@ public class Menu : MonoBehaviour, IPointerDownHandler
         }
     }
 
-    public void Upgrade(int index)
+    public void Upgrade(Button button)
     {
+        string position = new string(button.name.Take(2).ToArray());
 
+        bool canUpgrade = false;
+
+        switch (position[1])
+        {
+            case '1':
+            case '2':
+                if(button.tag == "turret")
+                {
+                    if (manager.cc >= 12)
+                    {
+                        canUpgrade = true;
+                        manager.cc -= 12;
+                    }
+                } else
+                {
+                    if (manager.cc >= 24)
+                    {
+                        canUpgrade = true;
+                        manager.cc -= 24;
+                    }
+                }
+                break;
+            case '3':
+                if (button.tag == "turret")
+                {
+                    if (manager.cc >= 48)
+                    {
+                        canUpgrade = true;
+                        manager.cc -= 48;
+                    }
+                }
+                else
+                {
+                    if (manager.cc >= 96)
+                    {
+                        canUpgrade = true;
+                        manager.cc -= 96;
+                    }
+                }
+                break;
+        }
+
+        if (canUpgrade) {
+            foreach (var item in buildings)
+            {
+                if (item.name == button.name + "game") {
+                    Generator gen = item.GetComponent<Generator>();
+                    if (button.tag == "turret") gen.Upgraded(Generator.Upgrades.turret);
+                    else gen.Upgraded(Generator.Upgrades.firewall);
+                }
+            }
+        }
     }
 }
