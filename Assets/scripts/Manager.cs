@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using System.Globalization;
+using UnityEngine.UI;
 
 public class Manager : MonoBehaviour
 {
@@ -11,6 +13,8 @@ public class Manager : MonoBehaviour
     public TMP_Text timeText;
     public TMP_Text moneyText;
     public TMP_Text temperatureText;
+
+    public Slider temperatureSlider;
 
     public GameObject menu;
 
@@ -45,6 +49,8 @@ public class Manager : MonoBehaviour
         menu.SetActive(false);
 
         buyHolder = GameObject.Find("BuyHolder");
+
+        temperatureSlider = GameObject.FindGameObjectWithTag("temperatureSlider").GetComponent<Slider>();
     }
 
     private void Update()
@@ -62,7 +68,22 @@ public class Manager : MonoBehaviour
 
         moneyText.text = $"{cc}";
         timeText.text = TimeToString();
-        temperatureText.text = temperature.ToString() + "°C";
+        temperatureText.text = temperature.ToString("F2", new CultureInfo("en-EN")) + "°C";
+
+        temperatureSlider.value = temperature;
+    }
+
+    private void FixedUpdate()
+    {
+        if(timeTilSpawn <= 0)
+        {
+            timeTilSpawn = spawnTime;
+
+            if(Random.Range(0, 11) <= 4) ice.Add(Instantiate(icePrefab, main));
+            else ice.Add(Instantiate(icePrefab, spawns[Random.Range(0, spawns.Count)]));
+        }
+
+        timeTilSpawn -= Time.fixedDeltaTime;
     }
 
     public void UIChange()
@@ -84,16 +105,8 @@ public class Manager : MonoBehaviour
         return menu.activeSelf;
     }
 
-    private void FixedUpdate()
+    public void AddHeat(float heatAmount)
     {
-        if(timeTilSpawn <= 0)
-        {
-            timeTilSpawn = spawnTime;
-
-            if(Random.Range(0, 11) <= 4) ice.Add(Instantiate(icePrefab, main));
-            else ice.Add(Instantiate(icePrefab, spawns[Random.Range(0, spawns.Count)]));
-        }
-
-        timeTilSpawn -= Time.fixedDeltaTime;
+        temperature += heatAmount;
     }
 }
